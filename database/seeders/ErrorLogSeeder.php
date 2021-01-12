@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Error;
 use App\Models\Country;
@@ -29,6 +29,7 @@ class ErrorLogSeeder extends Seeder
                 'user_id' => $userId->id,
                 'error_id' => $errorId->id,
                 'country_id' => $countryId->id,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ]);
         }
     }

@@ -11,16 +11,16 @@ class ErrorLog extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'id');
     }
 
-    public function country()
+    public function countrie()
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class,'id');
     }
 
     public function error()
     {
-        return $this->belongsTo(Error::class);
+        return $this->belongsTo(Error::class,'id');
     }
 }

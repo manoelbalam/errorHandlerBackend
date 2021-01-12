@@ -15,6 +15,9 @@ class ErrorLogController extends Controller
     public function index()
     {
         //
+        $errorLog = ErrorLog::all()->user();
+        // echo json_encode($errorLog);die;
+        return response()->json($errorLog);
     }
 
     /**

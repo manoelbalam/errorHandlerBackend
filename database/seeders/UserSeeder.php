@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'name' => 'Administrator',
             'email' => 'admin@test.com',
             'password' => Hash::make('password'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
         $collection = collect(['Agent1','Agent2','Agent3','Agent4','Agent5']);

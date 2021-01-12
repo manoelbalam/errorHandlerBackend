@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ErrorLogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,9 @@ Route::group([
 });
 
 Route::group(['middleware' => 'auth:api'], function ($router) {
-    Route::get('/test', function () {
-        return 'test';
-    });
+
+    Route::get('/error_log', [ErrorLogController::class, 'index']);  
+    // Route::get('/test', function () {
+    //     return 'test';
+    // });
 });

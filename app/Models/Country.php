@@ -9,8 +9,8 @@ class Country extends Model
 {
     use HasFactory;
 
-    public function errorLog()
+    public function error_logs()
     {
-        return $this->hasOne(ErrorLog::class);
+        return $this->belongsTo(ErrorLog::class);
     }
 }
