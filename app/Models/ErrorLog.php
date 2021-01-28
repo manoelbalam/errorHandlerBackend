@@ -11,10 +11,12 @@ class ErrorLog extends Model
 
     public function user()
     {
+        // return $this->belongsTo(User::class,'id');
         return $this->belongsTo(User::class,'id');
+
     }
 
-    public function countrie()
+    public function country()
     {
         return $this->belongsTo(Country::class,'id');
     }

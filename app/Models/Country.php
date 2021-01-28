@@ -11,6 +11,6 @@ class Country extends Model
 
     public function error_logs()
     {
-        return $this->belongsTo(ErrorLog::class);
+        return $this->hasOne(ErrorLog::class);
     }
 }

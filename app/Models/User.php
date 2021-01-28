@@ -62,9 +62,9 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
     
-    public function error_logs()
+    public function error_log()
     {
-        return $this->belongsTo(ErrorLog::class);
+        return $this->hasOne(ErrorLog::class);
         // note: we can also inlcude Mobile model like: 'App\Mobile'
     }
 }

@@ -14,8 +14,30 @@ class ErrorLogController extends Controller
      */
     public function index()
     {
-        //
-        $errorLog = ErrorLog::all()->user();
+        // >>> use App\Models\ErrorLog;
+        // >>> $e = ErrorLog::find(4);
+        // >>> $e->error->name;
+        // $errorLog = ErrorLog::all();
+        // echo json_encode($item->get('id'));
+        $errorLog = ErrorLog::where('user_id',4)->get('id')->map(function ($item, $key) {
+            // return $item * 2;
+            $e = ErrorLog::find($item->id);
+            // echo json_encode($e);
+            
+            // echo json_encode('---------------------');
+            $newErrorLog = collect();
+            $newErrorLog->put('id', $e->id);
+            $newErrorLog->put('lead_id', $e->lead_id);
+
+            $newErrorLog->put('error', $e->error()->get('name'));
+            // $newErrorLog->put('country', $e->country->name);
+            // $newErrorLog->put('created_at', $e->error->created_at);
+
+
+
+            return $newErrorLog;
+        });
+        // echo var_dump($errorLog);
         // echo json_encode($errorLog);die;
         return response()->json($errorLog);
     }
