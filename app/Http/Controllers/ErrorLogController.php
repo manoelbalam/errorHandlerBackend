@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon; 
 use App\Models\Error;
+use App\Models\Country;
 use App\Models\ErrorLog;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class ErrorLogController extends Controller
 {
     /**
@@ -15,52 +16,15 @@ class ErrorLogController extends Controller
      */
     public function index()
     {
-        // >>> use App\Models\ErrorLog;
-        // >>> $e = ErrorLog::find(4);
-        // >>> $e->error->name;
-        // $errorLog = ErrorLog::all();
-        // echo json_encode($item->get('id'));
-        $errorLog = ErrorLog::where('user_id',4)->get()->map(function ($item, $key) {
-            // return $item * 2;
-            $e = ErrorLog::find($item->id)->first();
-            // $en = Error::findOrFail($item->error_id);
-            // $e = ErrorLog::find($item->id);
-
-            // echo json_encode($e);
-            
-            // echo json_encode('---------------------');
+        $errorLog = ErrorLog::whereUserId(Auth::id())->get()->map(function ($item, $key) {
             $newErrorLog = collect();
-            $newErrorLog->put('lead_id', $e->lead_id);
-            $newErrorLog->put('error', $e->error->name);
-            $newErrorLog->put('country', $e->country->name);
-            $newErrorLog->put('created_at', $e->created_at);
-
-
-
-            // country_id: 2
-            // created_at: "2021-01-12T04:58:29.000000Z"
-            // error_id: 2
-            // id: 1
-            // lead_id: "261398"
-            // updated_at: null
-            // user_id: 3
-            // $newErrorLog->put('lead_id', $e->lead_id);
-
-            // // $newErrorLog->put('error', $en->id);
-            // $newErrorLog->put('error', $item->error_id);
-
-            
-            // $newErrorLog->put('country', $e->country->name);
-            // $newErrorLog->put('created_at', $e->error->created_at);
-
-
-
+            $newErrorLog->put('lead_id', $item->lead_id);
+            $newErrorLog->put('error', Error::whereId($item->error_id)->pluck('name')[0]);
+            $newErrorLog->put('country', Country::whereId($item->country_id)->pluck('name')[0]);
+            $newErrorLog->put('created_at', $item->created_at->toTimeString());
             return $newErrorLog;
         });
-        return response()->json([$errorLog], 200);
-        // echo var_dump($errorLog);
-        // echo json_encode($errorLog);die;
-        // return response()->json($errorLog);
+        return response()->json($errorLog, 200);
     }
 
     /**
