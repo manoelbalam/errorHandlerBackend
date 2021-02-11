@@ -18,7 +18,7 @@ class ErrorLogSeeder extends Seeder
      */
     public function run()
     {
-        for ($x = 0; $x <= 10; $x++) 
+        for ($x = 0; $x <= 50; $x++) 
         {
             $leadId = mt_rand(100000, 999999);
             $userId=User::all()->random(1)->first();
@@ -26,7 +26,7 @@ class ErrorLogSeeder extends Seeder
             $countryId=Country::all()->random(1)->first();
             DB::table('error_logs')->insert([
                 'lead_id' => $leadId,
-                'user_id' => $userId->id,
+                'user_id' => 1,
                 'error_id' => $errorId->id,
                 'country_id' => $countryId->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),

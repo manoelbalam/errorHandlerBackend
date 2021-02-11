@@ -15,10 +15,15 @@ class CountrySeeder extends Seeder
     public function run()
     {
         //
-        $collection = collect(['country1','country2','country3','country4','country5']);
-        $collection->each(function ($item, $key) {
+        $countries = collect([  'Mexico',
+                                'Peru',
+                                'Chile',
+                                'Colombia',
+                                'Panama'
+                            ]);
+        $countries->each(function ($country, $key) {
             DB::table('countries')->insert([
-                'name' => $item
+                'name' => $country
             ]);
         });
 

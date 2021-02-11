@@ -16,7 +16,8 @@ class ErrorLogController extends Controller
      */
     public function index()
     {
-        $errorLog = ErrorLog::whereUserId(Auth::id())->get()->map(function ($item, $key) {
+        $errorLog = ErrorLog::whereUserId(Auth::id())->whereDate('created_at', Carbon::today())->get()->map(function ($item, $key) {
+        // $errorLog = ErrorLog::whereUserId(Auth::id())->get()->map(function ($item, $key) {
             $newErrorLog = collect();
             $newErrorLog->put('lead_id', $item->lead_id);
             $newErrorLog->put('error', Error::whereId($item->error_id)->pluck('name')[0]);

@@ -18,18 +18,18 @@ class UserSeeder extends Seeder
         
         DB::table('users')->insert([
             'name' => 'Administrator',
-            'email' => 'admin@test.com',
-            'password' => Hash::make('password'),
+            'email' => 'admin',
+            'password' => Hash::make('admin'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        $collection = collect(['Agent1','Agent2','Agent3','Agent4','Agent5']);
-        $collection->each(function ($item, $key) {
+        $agents = collect(['Agent1','Agent2','Agent3','Agent4','Agent5']);
+        $agents->each(function ($agent, $key) {
             DB::table('users')->insert([
-                'name' => $item,
-                'email' => $item.'@test.com',
+                'name' => $agent,
+                'email' => $agent,
                 'password' => Hash::make('password'),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
             ]);
         });
     }

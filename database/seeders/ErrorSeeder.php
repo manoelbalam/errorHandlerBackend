@@ -14,10 +14,18 @@ class ErrorSeeder extends Seeder
      */
     public function run()
     {
-        $collection = collect(['error1','error2','error3','error4','error5']);
-        $collection->each(function ($item, $key) {
+        $errors = collect([  'Wrong Person',
+                             'Undefinied Call',
+                             'Ghost Call',
+                             'No Answer',
+                             'Voice Mail',
+                             'Choppy Agent Side',
+                             'Choppy Client Side',
+                             'Choppy Both Sides',
+                            ]);
+        $errors->each(function ($error) {
             DB::table('errors')->insert([
-                'name' => $item
+                'name' => $error
             ]);
         });
         
