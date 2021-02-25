@@ -13,7 +13,8 @@ class ErrorLogSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
+     * Remember populate 
+     * php artisan db:seed --class=ErrorLogSeeder
      * @return void
      */
     public function run()

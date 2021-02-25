@@ -25,12 +25,16 @@ Route::group([
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
 });
 
 Route::group(['middleware' => 'auth:api'], function ($router) {
 
-    Route::get('/error_log', [ErrorLogController::class, 'index']);  
+    Route::get('/error_log', [ErrorLogController::class, 'index']);
+    Route::post('error_log', [ErrorLogController::class, 'store']);
+    // Route::post('error_log', 'ErrorLogController@store');
+
+    // Route::post('error_log', 'ErrorLogController@store')->name('ajaxRequest.post');
     // Route::get('/test', function () {
     //     return 'test';
     // });

@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\ErrorLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Validator,Log;
 class ErrorLogController extends Controller
 {
     /**
@@ -25,7 +26,10 @@ class ErrorLogController extends Controller
             $newErrorLog->put('created_at', $item->created_at->toTimeString());
             return $newErrorLog;
         });
-        return response()->json($errorLog, 200);
+        $data = collect();
+        // echo json_encode($errorLog);
+        $data->put('data', $errorLog);
+        return response()->json($data, 200);
     }
 
     /**
@@ -35,7 +39,7 @@ class ErrorLogController extends Controller
      */
     public function create()
     {
-        //
+        return response()->json("create", 200);
     }
 
     /**
@@ -46,7 +50,38 @@ class ErrorLogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+
+        $request->validate([
+                'lead_id' => 'required|numeric|unique:error_logs',
+              'country_id' => 'required|numeric',
+              'error_id' => 'required|numeric'
+          ]);
+
+        //   ErrorLog::updateOrCreate(['id' => $request->id], [
+        //     'lead_id' => $request->lead_id,
+        //     'country_id' => $request->country_id,
+        //     'error_id' => $request->error_id
+        //   ]);
+
+        $errorLog = new ErrorLog();
+        $errorLog->lead_id = $request->lead_id;
+        $errorLog->country_id = $request->country_id;
+        $errorLog->error_id = $request->error_id;
+        $errorLog->user_id = Auth::id();
+        $errorLog->save();
+        return response()->json('success', 200);
+        // $input = $request->all();
+        // if ($request->ajax()) {
+
+        //     return response()->json("ajax", 200);
+
+        // }
+        // echo json_decode($request);
+        // echo json_encode($request->lead_id);
+        // return 
+
+        
     }
 
     /**
