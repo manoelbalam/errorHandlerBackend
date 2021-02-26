@@ -14,7 +14,10 @@ class ErrorController extends Controller
      */
     public function index()
     {
-        //
+        $errors = Error::all();
+        $data = collect();
+        $data->put('data', $errors);
+        return response()->json($data, 200);
     }
 
     /**

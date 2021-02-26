@@ -14,7 +14,10 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
+        $countries = Country::all();
+        $data = collect();
+        $data->put('data', $countries);
+        return response()->json($data, 200);
     }
 
     /**

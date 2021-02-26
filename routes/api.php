@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ErrorController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\ErrorLogController;
 
 /*
@@ -29,13 +31,9 @@ Route::group([
 });
 
 Route::group(['middleware' => 'auth:api'], function ($router) {
-
-    Route::get('/error_log', [ErrorLogController::class, 'index']);
-    Route::post('error_log', [ErrorLogController::class, 'store']);
-    // Route::post('error_log', 'ErrorLogController@store');
-
-    // Route::post('error_log', 'ErrorLogController@store')->name('ajaxRequest.post');
-    // Route::get('/test', function () {
-    //     return 'test';
-    // });
+    // Route::get('/error_log', [ErrorLogController::class, 'index']);
+    // Route::post('error_log', [ErrorLogController::class, 'store']);
+    Route::resource('error_log', ErrorLogController::class);
+    Route::resource('countries', CountryController::class);
+    Route::resource('errors', ErrorController::class);
 });
